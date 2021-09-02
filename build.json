@@ -1,0 +1,169 @@
+{
+  "pageName": "List",
+  "page": {
+    "title": "用户查询",
+    "search": {
+      "use": true,
+      "autoSearch": false,
+      "model": "formSearch",
+      "field": [
+        {
+          "elem": "input",
+          "placeholder": "请输入赛事标题",
+          "model": "title",
+          "default": "''",
+          "source": ""
+        },
+        {
+          "elem": "select",
+          "placeholder": "请选择赛事状态",
+          "model": "status",
+          "default": "''",
+          "source": "aStatus"
+        }
+      ],
+      "action": [
+        {
+          "title": "创建赛事",
+          "click": "fEditOne({})",
+          "type": "primary"
+        }
+      ]
+    },
+    "table": {
+      "userPagination": true,
+      "pageInfo": "pageInfo",
+      "loading": "listLoading",
+      "model": "tableLists",
+      "fields": [
+        {
+          "label": "赛事ID",
+          "type": "string",
+          "prop": "id",
+          "width": "50"
+        },
+        {
+          "label": "赛事标题",
+          "type": "string",
+          "prop": "title",
+          "width": "100"
+        },
+        {
+          "label": "赛事时间",
+          "type": "string",
+          "prop": "start_time",
+          "width": "150"
+        },
+        {
+          "label": "赛事状态",
+          "type": "fun",
+          "scope": "scope",
+          "template": "fShowStatus(scope.row)"
+        },
+        {
+          "label": "已报名/赛事规模",
+          "type": "fun",
+          "scope": "scope",
+          "template": "scope.row.cnt + '/' + scope.row.scope",
+          "width": "150"
+        },
+        {
+          "label": "操作",
+          "type": "action",
+          "scope": "scope",
+          "action": [
+            {
+              "title": "编辑",
+              "click": "fEditOne(scope.row)"
+            },
+            {
+              "title": "赛果",
+              "click": "fMatchResult(scope.row)"
+            },
+            {
+              "title": "删除",
+              "click": "fEditOne(scope.row)"
+            }
+          ],
+          "width": "230"
+        }
+      ]
+    },
+    "dialog": {
+      "addTitle": "添加赛事",
+      "editTitle": "编辑赛事",
+      "model": "formData",
+      "field": [
+        {
+          "label": "赛事标题",
+          "elem": "input",
+          "placeholder": "最多30个字",
+          "model": "title",
+          "default": "''",
+          "source": ""
+        },
+        {
+          "label": "比赛时间",
+          "elem": "date-picker",
+          "type": "datetime",
+          "model": "matchDate",
+          "default": "''",
+          "source": ""
+        },
+        {
+          "label": "赛事规模",
+          "elem": "inputNumber",
+          "model": "scope",
+          "default": "2",
+          "max": "",
+          "min": "0"
+        },
+        {
+          "label": "报名所需钥匙",
+          "elem": "inputNumber",
+          "model": "keys",
+          "default": "2",
+          "max": "",
+          "min": "0"
+        },
+        {
+          "label": "赛事奖励",
+          "elem": "input",
+          "placeholder": "请填写赛事奖励",
+          "model": "prize",
+          "default": "''",
+          "source": ""
+        },
+        {
+          "label": "管理者",
+          "elem": "input",
+          "placeholder": "请填写赛事奖励",
+          "model": "title",
+          "default": "''",
+          "source": ""
+        },
+        {
+          "label": "比赛介绍",
+          "elem": "textarea",
+          "placeholder": "",
+          "model": "desc",
+          "default": "''"
+        }
+      ]
+    }
+  },
+  "js": {
+    "name": "activityDoudizhuList"
+  },
+  "source": [
+    {
+      "key": "aStatus",
+      "value": [
+        {"label": "进行中", "value": "1"},
+        {"label": "已结束", "value": "2"},
+        {"label": "未开始", "value": "3"},
+        {"label": "已取消", "value": "4"}
+      ]
+    }
+  ]
+}
