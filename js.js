@@ -24,7 +24,7 @@ export default {
         page: this.pageInfo.page
       }
       if (this.formSearch.title) {
-        params.title = this.formSearch.title
+        param.title = this.formSearch.title
       }
 
       /// todo
