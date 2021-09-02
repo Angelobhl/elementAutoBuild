@@ -50,40 +50,53 @@ export default ${pageBuild.pageName}
 const jsStr = buildJS(pageBuild.js)
 const dataStr = buildData(pageBuild)
 
-const target = 'dist'
+const target = `dist/${pageBuild.pageName}`
 const pageFile = `${target}/${pageBuild.pageName}.vue`
-const jsFileDir = `${target}/${pageBuild.pageName}`
+const jsFileDir = `${target}/js/${pageBuild.pageName}`
 
-fs.writeFile(pageFile, pageHtml, (err) => {
-  if(err) {
+fs.mkdir(target, (err) => {
+  if (err) {
     return console.log(err)
   } else {
-    console.log('The vue was saved!')
-
-    fs.mkdir(jsFileDir, (err) => {
-      if (err) {
+    fs.writeFile(pageFile, pageHtml, (err) => {
+      if(err) {
         return console.log(err)
       } else {
-        console.log('The dir was saved!')
-        const jsFile = `${jsFileDir}/index.js`
-        const dataFile = `${jsFileDir}/data.js`
-
-        fs.writeFile(jsFile, jsStr, (err) => {
+        console.log('The vue was saved!')
+    
+        fs.mkdir(`${target}/js`, (err) => {
           if (err) {
             return console.log(err)
           } else {
-            console.log('The data was saved!')
-          }
-        })
-
-        fs.writeFile(dataFile, dataStr, (err) => {
-          if (err) {
-            return console.log(err)
-          } else {
-            console.log('The data was saved!')
+            fs.mkdir(jsFileDir, (err) => {
+              if (err) {
+                return console.log(err)
+              } else {
+                console.log('The dir was saved!')
+                const jsFile = `${jsFileDir}/index.js`
+                const dataFile = `${jsFileDir}/data.js`
+    
+                fs.writeFile(jsFile, jsStr, (err) => {
+                  if (err) {
+                    return console.log(err)
+                  } else {
+                    console.log('The data was saved!')
+                  }
+                })
+    
+                fs.writeFile(dataFile, dataStr, (err) => {
+                  if (err) {
+                    return console.log(err)
+                  } else {
+                    console.log('The data was saved!')
+                  }
+                })
+              }
+            })
           }
         })
       }
     })
   }
 })
+
