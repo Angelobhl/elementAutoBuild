@@ -51,6 +51,7 @@ oData.${page.table.loading} = false
 oData.${page.table.model} = []
 
 oData.dialogFormType = 'add'
+oData.dialogLoading = false
 oData.dialogFormVisible = false
 
 oData.${page.dialog.model} = {}
