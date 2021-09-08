@@ -52,13 +52,13 @@
         {
           "label": "状态",
           "type": "fun",
-          "scope": "scope.row",
+          "scope": "scope",
           "template": "fShowStatus(scope.row)"
         },
         {
           "label": "操作",
           "type": "action",
-          "scope": "scope.row",
+          "scope": "scope",
           "action": [
             {
               "title": "编辑",
