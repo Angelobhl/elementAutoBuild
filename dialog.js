@@ -57,7 +57,7 @@ class Dialog {
 
   inputHtml (attr) {
     let html = `
-          <el-input v-model="${this.dialog.model}.${attr.model}" clearable placeholder="${attr.placeholder}"></el-input>
+          <el-input v-model="${this.dialog.model}.${attr.model}" clearable placeholder="${attr.placeholder}" :disabled="${attr.disabled}"></el-input>
         `
 
     return html
@@ -65,7 +65,7 @@ class Dialog {
 
   selectHtml (attr) {
     let html = `
-          <el-select v-model="${this.dialog.model}.${attr.model}" clearable placeholder="${attr.placeholder}">
+          <el-select v-model="${this.dialog.model}.${attr.model}" clearable placeholder="${attr.placeholder}" :disabled="${attr.disabled}">
             <el-option
               v-for="item in ${attr.source}"
               :key="item.value"
@@ -84,6 +84,7 @@ class Dialog {
       case 'datetimerange':
         html = `
           <el-date-picker
+            :disabled="${attr.disabled}"
             v-model="${this.dialog.model}.${attr.model}"
             format="yyyy-MM-dd HH:mm:ss"
             value-format="yyyy-MM-dd HH:mm:ss"
@@ -98,6 +99,7 @@ class Dialog {
       case 'datetime':
         html = `
           <el-date-picker
+            :disabled="${attr.disabled}"
             v-model="${this.dialog.model}.${attr.model}"
             format="yyyy-MM-dd HH:mm:ss"
             type="datetime"
@@ -113,7 +115,7 @@ class Dialog {
 
   checkboxHtml (attr) {
     let html = `
-          <el-checkbox-group v-model="${this.dialog.model}.${attr.model}">
+          <el-checkbox-group v-model="${this.dialog.model}.${attr.model}" :disabled="${attr.disabled}">
             <el-checkbox
               v-for="item in ${attr.source}"
               :label="item.value"
@@ -128,7 +130,7 @@ class Dialog {
 
   radioHtml (attr) {
     let html = `
-          <el-radio-group v-model="${this.dialog.model}.${attr.model}">
+          <el-radio-group v-model="${this.dialog.model}.${attr.model}" :disabled="${attr.disabled}">
             <el-radio
               v-for="item in ${attr.source}"
               :label="item.value"
@@ -143,7 +145,7 @@ class Dialog {
 
   inputNumberHtml (attr) {
     let html = `
-          <el-input-number v-model="${this.dialog.model}.${attr.model}" controls-position="right" :min="${attr.min}" :max="${attr.max}" :step="1" step-strictly></el-input-number>
+          <el-input-number v-model="${this.dialog.model}.${attr.model}" controls-position="right" :min="${attr.min}" :max="${attr.max}" :step="1" step-strictly :disabled="${attr.disabled}"></el-input-number>
         `
 
     return html
@@ -151,7 +153,7 @@ class Dialog {
 
   textareaHtml (attr) {
     let html = `
-          <el-input type="textarea" :rows="4" v-model="${this.dialog.model}.${attr.model}" placeholder="${attr.placeholder}"></el-input>
+          <el-input type="textarea" :rows="4" v-model="${this.dialog.model}.${attr.model}" placeholder="${attr.placeholder}" :disabled="${attr.disabled}"></el-input>
         `
 
     return html

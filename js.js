@@ -83,6 +83,10 @@ export default {
       fSubmitApi(oPostData, this.dialogFormType).then((res) => {
         this.dialogLoading = false
         if (res.data.code === 0) {
+          this.$message({
+            type: 'success',
+            message: '保存成功'
+          })
           this.dialogFormVisible = false
           if (this.dialogFormType === 'add') {
             this.fDoSearch()
