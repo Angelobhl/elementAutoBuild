@@ -52,6 +52,19 @@ export default {
       this.pageInfo.page = param.page
       this.fLoadList()
     },
+    // 列表，显示状态
+    fShowStatus (row) {
+      let str = ''
+
+      let item
+      for (item of this.aStatus) {
+        if (item.value === +row.status) {
+          str = item.label
+        }
+      }
+
+      return str
+    },
     // 编辑、添加
     fEditOne (row) {
       this.dialogFormType = row.id ? 'edit' : 'add'
