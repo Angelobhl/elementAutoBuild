@@ -110,6 +110,26 @@ export default {
           this.$alert(res.data.message, '提示')
         }
       })
+    },
+    // 导出
+    fExport () {
+      const params = this.fSearchParams()
+      const query = QS.stringify(params)
+      const url = query ? '?' + query : ''
+      console.log(query)
+
+      window.open(url)
+    },
+    // 获取搜索参数
+    fSearchParams () {
+      let params = {}
+
+      this.formSearch.title && (params.title = this.formSearch.title)
+      this.formSearch.name && (params.name = this.formSearch.name)
+      this.formSearch.user.uid && (params.uid = this.formSearch.user.uid)
+      this.formSearch.status !== '' && (params.status = this.formSearch.status)
+
+      return params
     }
   },
 
