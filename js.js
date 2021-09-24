@@ -23,12 +23,9 @@ export default {
         size: this.pageInfo.size,
         page: this.pageInfo.page
       }
-      if (this.formSearch.title) {
-        param.title = this.formSearch.title
-      }
 
       /// todo
-      fLoadApi(param).then((res) => {
+      fLoadApi(Object.assign(param, this.fSearchParams())).then((res) => {
         this.listLoading = false
         if (res.data.code === 0) {
           /// todo
