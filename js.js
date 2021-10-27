@@ -1,5 +1,6 @@
 function buildJS (prop) {
   let jsStr = `import {BaseTemplate} from '@/components'
+import QS from 'qs'
 
 import oData from './data'
 
@@ -79,6 +80,10 @@ export default {
         fDelApi({ id: row.id }).then((res) => {
           this.listLoading = false
           if (res.data.code === 0) {
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
             this.pageInfo.total = this.pageInfo.total - 1
             this.pageInfo.page = Math.min(this.pageInfo.page, Math.ceil(this.pageInfo.total / this.pageInfo.size))
             this.fLoadList()
