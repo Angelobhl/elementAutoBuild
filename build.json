@@ -1,7 +1,9 @@
 {
-  "pageName": "EventbiddingList",
+  "pageName": "Players",
+  "langKey": "players",
+  "langPareng": "eventmanage",
   "page": {
-    "title": "赛事申办列表",
+    "title": "选手列表",
     "search": {
       "use": true,
       "autoSearch": false,
@@ -9,35 +11,49 @@
       "field": [
         {
           "elem": "input",
-          "placeholder": "请输入申办单位名称",
-          "model": "title",
+          "placeholder": "请输入选手姓名",
+          "model": "name",
           "default": "''"
         },
         {
           "elem": "input",
-          "placeholder": "请输入选择申请人昵称",
-          "model": "user",
+          "placeholder": "请输入选手ID",
+          "model": "id",
+          "default": "''"
+        },
+        {
+          "elem": "input",
+          "placeholder": "请输入游戏昵称",
+          "model": "nickname",
           "default": "''"
         },
         {
           "elem": "select",
-          "placeholder": "请选择联系状态",
-          "model": "status",
+          "placeholder": "所属游戏",
+          "model": "game_id",
           "default": "''",
-          "source": "aStatus"
+          "source": "aGames"
         },
         {
-          "elem": "input",
-          "placeholder": "请输入申办人姓名",
-          "model": "name",
-          "default": "''"
+          "elem": "select",
+          "placeholder": "所属赛区",
+          "model": "game_id",
+          "default": "''",
+          "source": "aRegion"
         }
       ],
       "action": [
         {
-          "title": "导出Excel",
-          "click": "fExport()",
-          "type": "primary"
+          "title": "添加",
+          "click": "fEditOne({})",
+          "type": "primary",
+          "action": "add"
+        },
+        {
+          "title": "添加",
+          "click": "fEditOne({})",
+          "type": "primary",
+          "lang": "common.addBtn"
         }
       ]
     },
@@ -48,77 +64,160 @@
       "model": "tableLists",
       "fields": [
         {
-          "label": "申请时间",
+          "label": "ID",
           "type": "string",
-          "prop": "created_time"
+          "prop": "id"
         },
         {
-          "label": "申请人昵称",
+          "label": "选手标识ID",
           "type": "string",
-          "prop": "nickname"
+          "prop": "identify"
         },
         {
-          "label": "申办赛事",
-          "type": "string",
-          "prop": "title"
-        },
-        {
-          "label": "申办单位",
-          "type": "string",
-          "prop": "company"
-        },
-        {
-          "label": "所在地区",
-          "type": "string",
-          "prop": "position"
-        },
-        {
-          "label": "申办人",
+          "label": "选手姓名",
           "type": "string",
           "prop": "name"
         },
         {
-          "label": "联系电话",
+          "label": "年龄",
           "type": "string",
-          "prop": "mobile"
+          "prop": "age"
         },
         {
-          "label": "联系状态",
+          "label": "选手照片",
           "type": "fun",
           "scope": "scope",
-          "template": "fShowStatus(scope.row)"
+          "prop": "avatar",
+          "template": ""
+        },
+        {
+          "label": "游戏分类",
+          "type": "string",
+          "prop": "game_name"
+        },
+        {
+          "label": "游戏昵称",
+          "type": "string",
+          "prop": "nickname"
+        },
+        {
+          "label": "所属战队",
+          "type": "string",
+          "prop": "team_name"
+        },
+        {
+          "label": "国家",
+          "type": "string",
+          "prop": "country"
+        },
+        {
+          "label": "所属赛区",
+          "type": "string",
+          "prop": "region"
+        },
+        {
+          "label": "简介",
+          "type": "string",
+          "prop": "desc"
         },
         {
           "label": "操作",
           "type": "action",
           "scope": "scope",
+          "lang": "tableActin",
           "action": [
             {
-              "title": "标记为已联系",
-              "click": "fSetStatus(scope.row)"
+              "title": "编辑",
+              "click": "fEditOne(scope.row)",
+              "action": "edit"
+            },
+            {
+              "title": "删除",
+              "click": "fDelOne(scope.row)",
+              "lang": "common.delBtn"
             }
           ]
         }
       ]
     },
     "dialog": {
-      "addTitle": "添加地域",
-      "editTitle": "编辑地域",
+      "addTitle": "添加选手",
+      "editTitle": "编辑选手",
       "model": "formData",
       "field": [
+        {
+          "label": "选手标识ID",
+          "elem": "input",
+          "placeholder": "请输入选手标识ID",
+          "model": "identify",
+          "default": "''"
+        },
+        {
+          "label": "选手姓名",
+          "elem": "input",
+          "placeholder": "请输入选手姓名",
+          "model": "name",
+          "default": "''"
+        },
+        {
+          "label": "年龄",
+          "elem": "inputNumber",
+          "placeholder": "",
+          "model": "weight",
+          "default": "0",
+          "max": "",
+          "min": "0"
+        },
+        {
+          "label": "选手照片",
+          "elem": "input",
+          "placeholder": "请输入选手姓名",
+          "model": "avatar",
+          "default": "''"
+        },
+        {
+          "label": "游戏分类",
+          "elem": "select",
+          "placeholder": "请选择游戏",
+          "model": "gameId",
+          "default": "''",
+          "source": "aGames"
+        },
+        {
+          "label": "游戏昵称",
+          "elem": "input",
+          "placeholder": "请输入选手游戏昵称",
+          "model": "nickname",
+          "default": "''"
+        },
+        {
+          "label": "所属战队",
+          "elem": "input",
+          "placeholder": "请输入选择战队",
+          "model": "team",
+          "default": "{id: ''}"
+        },
+        {
+          "label": "简介",
+          "elem": "input",
+          "placeholder": "请填写选手简介",
+          "model": "desc",
+          "default": "''"
+        }
       ]
     }
   },
   "js": {
-    "name": "matchesEventbiddingList"
+    "name": "eventmanageTeamMember"
   },
   "source": [
     {
-      "key": "aStatus",
-      "value": [
-        {"label": "未联系", "value": "0"},
-        {"label": "已联系", "value": "1"}
-      ]
+      "key": "aGames",
+      "value": []
+    },
+    {
+      "key": "aRegion",
+      "value": []
     }
   ]
 }

@@ -1,20 +1,20 @@
 const fs = require('fs')
 
 const pageBuild = require('./build.json')
-const SearchForm = require('./searchForm')
-const Table = require('./table')
-const Dialog = require('./dialog')
-const buildJS = require('./js')
-const buildData = require('./data')
-const buildLang = require('./lang')
+const SearchForm = require('./lang/searchForm')
+const Table = require('./lang/table')
+const Dialog = require('./lang/dialog')
+const buildJS = require('./lang/js')
+const buildData = require('./lang/data')
+const buildLang = require('./lang/lang')
 
-const SearchFormObj = new SearchForm(pageBuild.page.search)
+const SearchFormObj = new SearchForm(pageBuild.page.search, pageBuild.langPareng, pageBuild.langKey)
 const SearchFormHtml = SearchFormObj.build()
 
-const TableObj = new Table(pageBuild.page.table)
+const TableObj = new Table(pageBuild.page.table, pageBuild.langPareng, pageBuild.langKey)
 const TableHtml = TableObj.build()
 
-const DialogObj = new Dialog(pageBuild.page.dialog)
+const DialogObj = new Dialog(pageBuild.page.dialog, pageBuild.langPareng, pageBuild.langKey)
 const DialogHtml = DialogObj.build()
 
 let pageChange = ''
@@ -25,7 +25,7 @@ if (pageBuild.page.table.userPagination) {
 
 const pageHtml = `<template>
   <BaseTemplate
-    :title="'${pageBuild.page.title}'"
+    :title="$t('${pageBuild.langPareng}.${pageBuild.langKey}.title')"
     ${pageChange}
     :downloadVisible="false">
     <div slot="header">${SearchFormHtml}</div>
@@ -48,7 +48,7 @@ export default ${pageBuild.pageName}
 </style>
 `
 
-const jsStr = buildJS(pageBuild.js)
+const jsStr = buildJS(pageBuild.js, pageBuild.langPareng, pageBuild.langKey)
 const dataStr = buildData(pageBuild)
 const langStr = buildLang(pageBuild)
 

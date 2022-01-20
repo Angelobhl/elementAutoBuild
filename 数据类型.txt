@@ -3,8 +3,13 @@
   el-date-picker
   el-select
 
-表格
+  action
+  lang
 
+表格
+  prop
+  lang
+  action
 
 弹窗
 
