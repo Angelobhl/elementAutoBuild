@@ -124,7 +124,7 @@
           "label": "操作",
           "type": "action",
           "scope": "scope",
-          "lang": "tableActin",
+          "lang": "common.tableActin",
           "action": [
             {
               "title": "编辑",

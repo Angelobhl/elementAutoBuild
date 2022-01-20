@@ -1,17 +1,122 @@
 搜索模块
-  el-input
-  el-date-picker
-  el-select
+input:
+  "elem": "input",
+  "placeholder": "",
+  "model": "",
+  "default": "''"
 
-  action
-  lang
+select:
+  "elem": "select",
+  "placeholder": "",
+  "model": "",
+  "default": "''",
+  "source": ""
+
+date-picker:
+  "elem": "date-picker",
+  "placeholder": "",
+  "type": "datetimerange",
+  "model": "dateRange",
+  "default": "[]"
+
+action(有lang):
+  "title": "",
+  "click": "fEditOne({})",
+  "type": "primary",
+  "lang": ""
+
+action(无lang):
+  "title": "",
+  "click": "fEditOne({})",
+  "type": "primary",
+  "action": ""
 
 表格
-  prop
-  lang
-  action
+string:
+  "label": "",
+  "type": "string",
+  "prop": ""
+
+fun:
+  "label": "",
+  "type": "fun",
+  "scope": "scope",
+  "prop": "",
+  "template": ""
+
+action：
+  "label": "操作",
+  "type": "action",
+  "scope": "scope",
+  "lang": "common.tableActin",
+  "action": [
+    {
+      "title": "编辑",
+      "click": "fEditOne(scope.row)",
+      "action": "edit"
+    },
+    {
+      "title": "删除",
+      "click": "fDelOne(scope.row)",
+      "lang": "common.delBtn"
+    }
+  ]
 
 弹窗
+input:
+  "label": "",
+  "elem": "input",
+  "placeholder": "",
+  "model": "",
+  "default": "''"
+
+inputNumber:
+  "label": "",
+  "elem": "inputNumber",
+  "placeholder": "",
+  "model": "",
+  "default": "0",
+  "max": "",
+  "min": "0"
+
+select:
+  "label": "",
+  "elem": "select",
+  "placeholder": "",
+  "model": "",
+  "default": "''",
+  "source": ""
+
+date-picker:
+  "label": "",
+  "elem": "date-picker",
+  "type": "datetimerange",
+  "model": "",
+  "default": "[]",
+  "source": ""
+
+checkbox:
+  "label": "",
+  "elem": "checkbox",
+  "placeholder": "",
+  "model": "",
+  "default": "[]",
+  "source": ""
+
+radio:
+  "label": "",
+  "elem": "radio",
+  "placeholder": "",
+  "model": "",
+  "default": "",
+  "source": ""
+
+textarea:
+  "label": "",
+  "elem": "textarea",
+  "placeholder": "",
+  "model": "",
+  "default": "''"
 
 
 
