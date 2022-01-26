@@ -23,9 +23,11 @@ function buildLang (pageBuild) {
     for (item of pageBuild.page.table.fields) {
       if (!item.lang) {
         tableStr.push(`${item.prop}: '${item.label}'`)
-        if (item.type === 'action') {
-          let action
-          for (action of item.action) {
+      }
+      if (item.type === 'action') {
+        let action
+        for (action of item.action) {
+          if (!action.lang) {
             tableStr.push(`${action.action}Action: '${action.title}'`)
           }
         }
@@ -56,7 +58,7 @@ function buildLang (pageBuild) {
   search: {
     ${searchStr}
   },
-  tableLabel: {
+  table: {
     ${tableStr}
   },
   dialog: {

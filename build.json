@@ -1,9 +1,9 @@
 {
-  "pageName": "Players",
-  "langKey": "players",
-  "langPareng": "eventmanage",
+  "pageName": "Comments",
+  "langKey": "comments",
+  "langPareng": "information",
   "page": {
-    "title": "选手列表",
+    "title": "资讯评论",
     "search": {
       "use": true,
       "autoSearch": false,
@@ -11,49 +11,35 @@
       "field": [
         {
           "elem": "input",
-          "placeholder": "请输入选手姓名",
-          "model": "name",
+          "placeholder": "请输入评论内容",
+          "model": "content",
           "default": "''"
         },
         {
           "elem": "input",
-          "placeholder": "请输入选手ID",
-          "model": "id",
+          "placeholder": "请输入资讯标题",
+          "model": "informationId",
           "default": "''"
         },
         {
           "elem": "input",
-          "placeholder": "请输入游戏昵称",
-          "model": "nickname",
+          "placeholder": "请输入评论者昵称",
+          "model": "uid",
           "default": "''"
         },
         {
-          "elem": "select",
-          "placeholder": "所属游戏",
-          "model": "game_id",
-          "default": "''",
-          "source": "aGames"
-        },
-        {
-          "elem": "select",
-          "placeholder": "所属赛区",
-          "model": "game_id",
-          "default": "''",
-          "source": "aRegion"
+          "elem": "input",
+          "placeholder": "请输入评论者IP",
+          "model": "ip",
+          "default": "''"
         }
       ],
       "action": [
         {
-          "title": "添加",
+          "title": "隐藏选中项",
           "click": "fEditOne({})",
           "type": "primary",
-          "action": "add"
-        },
-        {
-          "title": "添加",
-          "click": "fEditOne({})",
-          "type": "primary",
-          "lang": "common.addBtn"
+          "action": "hideBtn"
         }
       ]
     },
@@ -64,61 +50,29 @@
       "model": "tableLists",
       "fields": [
         {
-          "label": "ID",
+          "label": "评论内容",
           "type": "string",
-          "prop": "id"
+          "prop": "content"
         },
         {
-          "label": "选手标识ID",
-          "type": "string",
-          "prop": "identify"
-        },
-        {
-          "label": "选手姓名",
-          "type": "string",
-          "prop": "name"
-        },
-        {
-          "label": "年龄",
-          "type": "string",
-          "prop": "age"
-        },
-        {
-          "label": "选手照片",
-          "type": "fun",
-          "scope": "scope",
-          "prop": "avatar",
-          "template": ""
-        },
-        {
-          "label": "游戏分类",
-          "type": "string",
-          "prop": "game_name"
-        },
-        {
-          "label": "游戏昵称",
+          "label": "评论者昵称",
           "type": "string",
           "prop": "nickname"
         },
         {
-          "label": "所属战队",
+          "label": "评论者IP",
           "type": "string",
-          "prop": "team_name"
+          "prop": "ip"
         },
         {
-          "label": "国家",
+          "label": "资讯标题",
           "type": "string",
-          "prop": "country"
+          "prop": "title"
         },
         {
-          "label": "所属赛区",
+          "label": "时间",
           "type": "string",
-          "prop": "region"
-        },
-        {
-          "label": "简介",
-          "type": "string",
-          "prop": "desc"
+          "prop": "createDate"
         },
         {
           "label": "操作",
@@ -127,40 +81,61 @@
           "lang": "common.tableActin",
           "action": [
             {
-              "title": "编辑",
-              "click": "fEditOne(scope.row)",
-              "action": "edit"
+              "title": "禁言",
+              "click": "fBanOne(scope.row)",
+              "action": "ban"
             },
             {
-              "title": "删除",
-              "click": "fDelOne(scope.row)",
-              "lang": "common.delBtn"
+              "title": "隐藏",
+              "click": "fHideOne(scope.row)",
+              "action": "hide"
+            },
+            {
+              "title": "显示",
+              "click": "fUnhideOne(scope.row)",
+              "action": "unhide"
             }
           ]
         }
       ]
     },
     "dialog": {
-      "addTitle": "添加选手",
-      "editTitle": "编辑选手",
+      "addTitle": "添加资讯",
+      "editTitle": "编辑资讯",
       "model": "formData",
       "field": [
         {
-          "label": "选手标识ID",
+          "label": "作者",
           "elem": "input",
-          "placeholder": "请输入选手标识ID",
-          "model": "identify",
+          "placeholder": "请输入作者名字",
+          "model": "anchor",
           "default": "''"
         },
         {
-          "label": "选手姓名",
+          "label": "资讯标题",
           "elem": "input",
-          "placeholder": "请输入选手姓名",
-          "model": "name",
+          "placeholder": "最好控制在60个字",
+          "model": "title",
           "default": "''"
         },
         {
-          "label": "年龄",
+          "label": "关联分类",
+          "elem": "select",
+          "placeholder": "请选择游戏分类",
+          "model": "gameId",
+          "default": "''",
+          "source": "aGames"
+        },
+        {
+          "label": "是否置顶",
+          "elem": "radio",
+          "placeholder": "",
+          "model": "top",
+          "default": "1",
+          "source": "aTopStatus"
+        },
+        {
+          "label": "权重",
           "elem": "inputNumber",
           "placeholder": "",
           "model": "weight",
@@ -169,55 +144,26 @@
           "min": "0"
         },
         {
-          "label": "选手照片",
-          "elem": "input",
-          "placeholder": "请输入选手姓名",
-          "model": "avatar",
-          "default": "''"
+          "label": "是否链接外部资源",
+          "elem": "radio",
+          "placeholder": "",
+          "model": "thirdLink",
+          "default": "1",
+          "source": "aTopStatus"
         },
         {
-          "label": "游戏分类",
-          "elem": "select",
-          "placeholder": "请选择游戏",
-          "model": "gameId",
-          "default": "''",
-          "source": "aGames"
-        },
-        {
-          "label": "游戏昵称",
+          "label": "资讯内容",
           "elem": "input",
-          "placeholder": "请输入选手游戏昵称",
-          "model": "nickname",
-          "default": "''"
-        },
-        {
-          "label": "所属战队",
-          "elem": "input",
-          "placeholder": "请输入选择战队",
-          "model": "team",
-          "default": "{id: ''}"
-        },
-        {
-          "label": "简介",
-          "elem": "input",
-          "placeholder": "请填写选手简介",
-          "model": "desc",
+          "placeholder": "",
+          "model": "content",
           "default": "''"
         }
       ]
     }
   },
   "js": {
-    "name": "eventmanageTeamMember"
+    "name": "informationComments"
   },
   "source": [
-    {
-      "key": "aGames",
-      "value": []
-    },
-    {
-      "key": "aRegion",
-      "value": []
-    }
   ]
 }

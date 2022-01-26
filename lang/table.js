@@ -31,7 +31,7 @@ class Table {
           let actionHtml = []
           let actionItem
           for (actionItem of item.action) {
-            let actionLang = actionItem.lang || `${this.langPareng}.${this.langKey}.table.${item.action}Action`
+            let actionLang = actionItem.lang || `${this.langPareng}.${this.langKey}.table.${actionItem.action}Action`
             actionHtml.push(`<el-button type="text" size="mini" @click="${actionItem.click}">{{ $t('${actionLang}') }}</el-button>`)
           }
           actionHtml = actionHtml.join(`
