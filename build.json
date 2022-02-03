@@ -1,9 +1,9 @@
 {
-  "pageName": "Comments",
-  "langKey": "comments",
-  "langPareng": "information",
+  "pageName": "List",
+  "langKey": "list",
+  "langPareng": "eventmanage",
   "page": {
-    "title": "资讯评论",
+    "title": "赛事列表",
     "search": {
       "use": true,
       "autoSearch": false,
@@ -11,35 +11,31 @@
       "field": [
         {
           "elem": "input",
-          "placeholder": "请输入评论内容",
-          "model": "content",
+          "placeholder": "请输入赛事标题",
+          "model": "title",
           "default": "''"
         },
         {
-          "elem": "input",
-          "placeholder": "请输入资讯标题",
-          "model": "informationId",
-          "default": "''"
+          "elem": "date-picker",
+          "placeholder": "",
+          "type": "datetimerange",
+          "model": "dateRange",
+          "default": "[]"
         },
         {
-          "elem": "input",
-          "placeholder": "请输入评论者昵称",
-          "model": "uid",
-          "default": "''"
-        },
-        {
-          "elem": "input",
-          "placeholder": "请输入评论者IP",
-          "model": "ip",
-          "default": "''"
+          "elem": "select",
+          "placeholder": "请输入选择游戏",
+          "model": "gameId",
+          "default": "''",
+          "source": "aGames"
         }
       ],
       "action": [
         {
-          "title": "隐藏选中项",
+          "title": "添加",
           "click": "fEditOne({})",
           "type": "primary",
-          "action": "hideBtn"
+          "lang": "common.addBtn"
         }
       ]
     },
@@ -50,89 +46,164 @@
       "model": "tableLists",
       "fields": [
         {
-          "label": "评论内容",
+          "label": "赛事ID",
           "type": "string",
-          "prop": "content"
+          "prop": "id"
         },
         {
-          "label": "评论者昵称",
-          "type": "string",
-          "prop": "nickname"
-        },
-        {
-          "label": "评论者IP",
-          "type": "string",
-          "prop": "ip"
-        },
-        {
-          "label": "资讯标题",
+          "label": "赛事标题",
           "type": "string",
           "prop": "title"
         },
         {
-          "label": "时间",
+          "label": "赛事类型",
+          "type": "fun",
+          "scope": "scope",
+          "prop": "type",
+          "template": "+scope.row.type === 1 ? $t('eventmanage.matchType', 1) : $t('eventmanage.matchType', 2)"
+        },
+        {
+          "label": "赛制类型",
+          "type": "fun",
+          "scope": "scope",
+          "prop": "format",
+          "template": "+scope.row.format === 1 ? $t('eventmanage.matchFormat', 1) : $t('eventmanage.matchFormat', 2)"
+        },
+        {
+          "label": "游戏",
+          "type": "fun",
+          "scope": "scope",
+          "prop": "type",
+          "template": "fShowGame(scope.row)"
+        },
+        {
+          "label": "赛事时间",
+          "type": "fun",
+          "scope": "scope",
+          "prop": "time",
+          "template": "scope.row.start_time + ' - ' + scope.row.end_time"
+        },
+        {
+          "label": "赛事状态",
+          "type": "fun",
+          "scope": "scope",
+          "prop": "status",
+          "template": "fShowStatus(scope.row)"
+        },
+        {
+          "label": "已报名/赛事规模",
+          "type": "fun",
+          "scope": "scope",
+          "prop": "status",
+          "template": "scope.row.cnt + '/' + scope.row.scale"
+        },
+        {
+          "label": "权重",
           "type": "string",
-          "prop": "createDate"
+          "prop": "weight"
         },
         {
           "label": "操作",
           "type": "action",
           "scope": "scope",
-          "lang": "common.tableActin",
+          "lang": "common.tableAction",
           "action": [
             {
-              "title": "禁言",
-              "click": "fBanOne(scope.row)",
-              "action": "ban"
+              "title": "编辑",
+              "click": "fEditOne(scope.row)",
+              "lang": "common.editBtn"
             },
             {
-              "title": "隐藏",
-              "click": "fHideOne(scope.row)",
-              "action": "hide"
+              "title": "赛程管理",
+              "click": "fManageSchedule(scope.row)",
+              "action": "schedule"
             },
             {
-              "title": "显示",
-              "click": "fUnhideOne(scope.row)",
-              "action": "unhide"
+              "title": "报名管理",
+              "click": "fManageSigned(scope.row)",
+              "action": "signed"
+            },
+            {
+              "title": "删除",
+              "click": "fDelOne(scope.row)",
+              "lang": "common.delBtn"
             }
           ]
         }
       ]
     },
     "dialog": {
-      "addTitle": "添加资讯",
-      "editTitle": "编辑资讯",
+      "addTitle": "添加赛事",
+      "editTitle": "编辑赛事",
       "model": "formData",
       "field": [
         {
-          "label": "作者",
+          "label": "赛事标题",
           "elem": "input",
-          "placeholder": "请输入作者名字",
-          "model": "anchor",
-          "default": "''"
-        },
-        {
-          "label": "资讯标题",
-          "elem": "input",
-          "placeholder": "最好控制在60个字",
+          "placeholder": "最多30个字",
           "model": "title",
           "default": "''"
         },
         {
-          "label": "关联分类",
+          "label": "赛事KV",
+          "elem": "input",
+          "placeholder": "最好控制在60个字",
+          "model": "banner",
+          "default": "''"
+        },
+        {
+          "label": "游戏",
           "elem": "select",
-          "placeholder": "请选择游戏分类",
-          "model": "gameId",
+          "placeholder": "请输入选择游戏",
+          "model": "game_id",
           "default": "''",
           "source": "aGames"
         },
         {
-          "label": "是否置顶",
+          "label": "比赛地点",
+          "elem": "input",
+          "placeholder": "不填默认线上赛",
+          "model": "location",
+          "default": "''"
+        },
+        {
+          "label": "比赛区服",
+          "elem": "input",
+          "placeholder": "必填",
+          "model": "zone",
+          "default": "''"
+        },
+        {
+          "label": "比赛时间",
+          "elem": "date-picker",
+          "type": "datetimerange",
+          "model": "raceDate",
+          "default": "[]",
+          "source": ""
+        },
+        {
+          "label": "赛事模式",
           "elem": "radio",
           "placeholder": "",
-          "model": "top",
+          "model": "mode",
           "default": "1",
-          "source": "aTopStatus"
+          "source": "aMode"
+        },
+        {
+          "label": "赛制类型",
+          "elem": "radio",
+          "placeholder": "",
+          "model": "formatType",
+          "default": "1",
+          "source": "aFormat"
+        },
+        {
+          "label": "赛事列表显隐",
+          "elem": "radio",
+          "placeholder": "",
+          "model": "visible",
+          "default": "1",
+          "source": "aVisible"
         },
         {
           "label": "权重",
@@ -144,26 +215,97 @@
           "min": "0"
         },
         {
-          "label": "是否链接外部资源",
+          "label": "赛事规模",
           "elem": "radio",
           "placeholder": "",
-          "model": "thirdLink",
+          "model": "match_scale",
           "default": "1",
-          "source": "aTopStatus"
+          "source": "aVisible"
         },
         {
-          "label": "资讯内容",
-          "elem": "input",
+          "label": "规模",
+          "elem": "select",
+          "placeholder": "请选择参赛战队数/人数",
+          "model": "scale",
+          "default": "''",
+          "source": "aScale"
+        },
+        {
+          "label": "赛事类型",
+          "elem": "radio",
           "placeholder": "",
-          "model": "content",
+          "model": "match_type",
+          "default": "1",
+          "source": "aType"
+        },
+        {
+          "label": "赛事奖励",
+          "elem": "input",
+          "placeholder": "请填写赛事奖励",
+          "model": "award",
+          "default": "''"
+        },
+        {
+          "label": "主办方",
+          "elem": "input",
+          "placeholder": "请输入主办方名称",
+          "model": "owner",
           "default": "''"
         }
       ]
     }
   },
   "js": {
-    "name": "informationComments"
+    "name": "eventmanageList"
   },
   "source": [
+    {
+      "key": "aGames",
+      "value": []
+    },
+    {
+      "key": "aMatchStatus",
+      "value": [
+        {"name": "i18n.t('eventmanage.matchStatus', 1)", "value": 1},
+        {"name": "i18n.t('eventmanage.matchStatus', 2)", "value": 2},
+        {"name": "i18n.t('eventmanage.matchStatus', 3)", "value": 3},
+        {"name": "i18n.t('eventmanage.matchStatus', 4)", "value": 4},
+        {"name": "i18n.t('eventmanage.matchStatus', 5)", "value": 5},
+        {"name": "i18n.t('eventmanage.matchStatus', 6)", "value": 6},
+        {"name": "i18n.t('eventmanage.matchStatus', 7)", "value": 0}
+      ]
+    },
+    {
+      "key": "aMode",
+      "value": [
+        {"name": "i18n.t('eventmanage.matchMode', 1)", "value": 1},
+        {"name": "i18n.t('eventmanage.matchMode', 2)", "value": 2}
+      ]
+    },
+    {
+      "key": "aFormat",
+      "value": [
+        {"name": "i18n.t('eventmanage.matchFormat', 1)", "value": 1},
+        {"name": "i18n.t('eventmanage.matchFormat', 2)", "value": 2}
+      ]
+    },
+    {
+      "key": "aVisible",
+      "value": [
+        {"name": "i18n.t('eventmanage.matchVisible', 1)", "value": 1},
+        {"name": "i18n.t('eventmanage.matchVisible', 2)", "value": 0}
+      ]
+    },
+    {
+      "key": "aScale",
+      "value": []
+    },
+    {
+      "key": "aType",
+      "value": [
+        {"name": "i18n.t('eventmanage.matchType', 1)", "value": 1},
+        {"name": "i18n.t('eventmanage.matchType', 2)", "value": 0}
+      ]
+    }
   ]
 }
