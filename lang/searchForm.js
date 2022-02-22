@@ -91,6 +91,7 @@ class SearchForm {
   datePickerHtml (attr) {
     let html = `
           <el-date-picker
+            unlink-panels
             v-model="${this.search.model}.${attr.model}"
             format="yyyy-MM-dd HH:mm:ss"
             value-format="yyyy-MM-dd HH:mm:ss"

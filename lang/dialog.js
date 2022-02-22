@@ -89,6 +89,7 @@ class Dialog {
       case 'datetimerange':
         html = `
           <el-date-picker
+            unlink-panels
             :disabled="${attr.disabled}"
             v-model="${this.dialog.model}.${attr.model}"
             format="yyyy-MM-dd HH:mm:ss"
