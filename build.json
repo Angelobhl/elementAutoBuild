@@ -1,184 +1,188 @@
 {
-  "pageName": "ScheduleList",
+  "pageName": "SportsGuess",
   "langKey": "scheduleList",
   "langPareng": "eventmanage",
   "page": {
-    "title": "{title}[{type}]-赛程管理",
+    "title": "比赛预测",
     "search": {
       "use": true,
       "autoSearch": false,
       "model": "formSearch",
       "field": [
-        {
-          "elem": "date-picker",
-          "placeholder": "",
-          "type": "datetimerange",
-          "model": "dateRange",
-          "default": "[]"
-        },
-        {
-          "elem": "input",
-          "placeholder": "请输入选手/战队名称",
-          "model": "name",
-          "default": "''"
-        }
-      ],
+          {
+            "elem": "input",
+            "placeholder": "请输入广告标题",
+            "model": "title",
+            "default": "''"
+          }
+        ],
       "action": [
         {
-          "title": "添加赛程",
+          "title": "添加",
           "click": "fEditOne({})",
           "type": "primary",
-          "action": "addSchedule"
+          "action": ""
         }
       ]
     },
     "table": {
-      "userPagination": true,
+      "userPagination": false,
       "pageInfo": "pageInfo",
       "loading": "listLoading",
       "model": "tableLists",
       "fields": [
         {
-          "label": "比赛场次",
+          "label": "比赛ID",
           "type": "string",
-          "prop": "group_id"
+          "prop": "id"
         },
         {
-          "label": "比赛轮次",
+          "label": "比赛标题",
           "type": "string",
-          "prop": "stage_name"
+          "prop": "name"
         },
         {
-          "label": "时间",
+          "label": "比赛时间",
+          "type": "string",
+          "prop": "match_time"
+        },
+        {
+          "label": "比赛状态",
           "type": "fun",
           "scope": "scope",
-          "prop": "time",
-          "template": "scope.row.start_date"
+          "prop": "",
+          "template": "fShowStatus(scope.row)"
         },
         {
-          "label": "主场",
-          "type": "fun",
-          "scope": "scope",
-          "prop": "team1",
-          "template": "scope.row.team1 ? scope.row.team1.name : '-'"
-        },
-        {
-          "label": "客场",
-          "type": "fun",
-          "scope": "scope",
-          "prop": "team2",
-          "template": "scope.row.team2 ? scope.row.team2.name : '-'"
-        },
-        {
-          "label": "对局数",
+          "label": "主队",
           "type": "string",
-          "prop": "bo"
+          "prop": "team_name_1"
+        },
+        {
+          "label": "客队",
+          "type": "string",
+          "prop": "team_name_2"
         },
         {
           "label": "比分",
           "type": "fun",
           "scope": "scope",
-          "prop": "result",
-          "template": "(scope.row.team1 ? (scope.row.team1.result || '-') : '-') + ':' + (scope.row.team2 ? (scope.row.team2.result || '-') : '-')"
+          "prop": "",
+          "template": "fShowScore(scope.row)"
         },
         {
-          "label": "选手积分",
-          "type": "fun",
-          "scope": "scope",
-          "prop": "scoreList",
-          "template": ""
+          "label": "权重",
+          "type": "string",
+          "prop": "weight"
         },
         {
           "label": "操作",
           "type": "action",
           "scope": "scope",
-          "lang": "common.tableAction",
           "action": [
             {
               "title": "编辑",
-              "click": "fEditOne(scope.row)",
-              "lang": "common.editBtn"
+              "click": "fEditOne(scope.row)"
             },
             {
-              "title": "对局信息",
-              "click": "fScheduleBoList(scope.row)",
-              "lang": "common.editBtn"
+              "title": "结算",
+              "click": "fSettlementOne(scope.row)"
             },
             {
-              "title": "删除",
-              "click": "fDelOne(scope.row)",
-              "lang": "common.delBtn"
+              "title": "中奖名单",
+              "click": "fWinningList(scope.row)"
             }
           ]
         }
       ]
     },
     "dialog": {
-      "addTitle": "添加赛程",
-      "editTitle": "编辑赛程",
+      "addTitle": "添加比赛",
+      "editTitle": "编辑比赛",
       "model": "formData",
       "field": [
         {
-          "label": "比赛轮次",
+          "label": "比赛标题",
           "elem": "input",
           "placeholder": "",
-          "model": "stage_name",
+          "model": "name",
           "default": "''"
         },
         {
           "label": "比赛时间",
           "elem": "date-picker",
           "type": "datetime",
-          "model": "start_time",
+          "model": "match_time",
+          "default": "''",
+          "source": ""
+        },
+        {
+          "label": "主队名称",
+          "elem": "input",
+          "placeholder": "",
+          "model": "team_name_1",
           "default": "''"
         },
         {
-          "label": "对局数",
+          "label": "主队Logo",
+          "elem": "input",
+          "placeholder": "",
+          "model": "team_logo_1",
+          "default": "''"
+        },
+        {
+          "label": "客队名称",
+          "elem": "input",
+          "placeholder": "",
+          "model": "team_name_2",
+          "default": "''"
+        },
+        {
+          "label": "客队Logo",
+          "elem": "input",
+          "placeholder": "",
+          "model": "team_logo_2",
+          "default": "''"
+        },
+        {
+          "label": "预测时间",
+          "elem": "date-picker",
+          "type": "datetimerange",
+          "model": "guessTimeRange",
+          "default": "[]",
+          "source": ""
+        },
+        {
+          "label": "权重",
           "elem": "inputNumber",
           "placeholder": "",
-          "model": "bo",
-          "default": "3",
+          "model": "weight",
+          "default": "0",
           "max": "",
           "min": "0"
         },
         {
-          "label": "对阵双方",
+          "label": "预测奖品",
           "elem": "input",
           "placeholder": "",
-          "model": "against",
-          "default": "''"
-        },
-        {
-          "label": "比分",
-          "elem": "input",
-          "placeholder": "",
-          "model": "result",
-          "default": "''"
-        },
-        {
-          "label": "直播推流地址",
-          "elem": "input",
-          "placeholder": "",
-          "model": "stream_url",
-          "default": "''"
-        },
-        {
-          "label": "视频ID",
-          "elem": "input",
-          "placeholder": "",
-          "model": "stream_id",
+          "model": "award",
           "default": "''"
         }
       ]
     }
   },
   "js": {
-    "name": "eventmanageScheduleList"
+    "name": "activitySportsGuess"
   },
   "source": [
     {
-      "key": "aSignList",
-      "value": []
+      "key": "aStatus",
+      "value": [
+        {"label": "未开始", "value": 0},
+        {"label": "预测中", "value": 1},
+        {"label": "已封盘", "value": 2},
+        {"label": "已结束", "value": 3}
+      ]
     }
   ]
 }
